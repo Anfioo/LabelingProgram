@@ -367,7 +367,7 @@ class LabelTool(QMainWindow):
     def load_shortcuts(self):
         """加载快捷键配置"""
         try:
-            with open('../resource/shortcuts.json', 'r') as f:
+            with open('resource/shortcuts.json', 'r') as f:
                 self.shortcuts = json.load(f)
 
         except (FileNotFoundError, json.JSONDecodeError):
@@ -387,7 +387,7 @@ class LabelTool(QMainWindow):
     def load_config(self):
         """加载快捷键配置"""
         try:
-            with open('../resource/config.json', 'r') as f:
+            with open('resource/config.json', 'r') as f:
                 self.config = json.load(f)
 
         except (FileNotFoundError, json.JSONDecodeError):
@@ -459,12 +459,12 @@ class LabelTool(QMainWindow):
 
     def save_config(self):
         """保存快捷键配置到文件"""
-        with open('../resource/config.json', 'w') as f:
+        with open('resource/config.json', 'w') as f:
             json.dump(self.config, f, indent=4)
 
     def save_shortcuts(self):
         """保存快捷键配置到文件"""
-        with open('../resource/shortcuts.json', 'w') as f:
+        with open('resource/shortcuts.json', 'w') as f:
             json.dump(self.shortcuts, f, indent=4)
 
     def reload_all_setting(self):

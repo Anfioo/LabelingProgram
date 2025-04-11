@@ -143,6 +143,10 @@ class ImageResizerApp(QMainWindow):
         output_layout.addWidget(QLabel("输出文件夹:"))
         self.output_line = QLineEdit()
         self.output_line.setPlaceholderText("点击浏览选择输出文件夹")
+
+        if self.deal_dir is not None:
+            self.output_line.setText(self.deal_dir+"_ok")
+
         output_layout.addWidget(self.output_line)
         self.output_btn = QPushButton("浏览...")
         self.output_btn.clicked.connect(self.select_output_folder)

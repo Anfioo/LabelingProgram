@@ -14,7 +14,7 @@ class ProfileWindow(QWidget):
     def initUI(self):
         # 窗口设置
         self.setWindowTitle('✨ Anfioo 个人简介 ✨')
-        self.setWindowIcon(QIcon('assets/avatar.png'))
+        self.setWindowIcon(QIcon('../assets/avatar.png'))
         self.setFixedSize(600, 700)  # 调整窗口大小
         self.setStyleSheet("""
             QWidget {
@@ -43,7 +43,7 @@ class ProfileWindow(QWidget):
         avatar_layout.setContentsMargins(0, 0, 0, 0)
 
         avatar_label = QLabel()
-        pixmap = QPixmap('assets/avatar.png')
+        pixmap = QPixmap('../assets/avatar.png')
         avatar_label.setPixmap(pixmap.scaled(140, 140, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         avatar_label.setAlignment(Qt.AlignCenter)
         avatar_layout.addWidget(avatar_label)
@@ -78,14 +78,14 @@ class ProfileWindow(QWidget):
         github_btn = self.create_link_button(
             "GitHub",
             "https://github.com/Anfioo",
-            "assets/github.png",
+            "../assets/github.png",
             "#24292e"
         )
 
         bilibili_btn = self.create_link_button(
             "哔哩哔哩",
             "https://space.bilibili.com/1821689715",
-            "assets/bilibili.png",
+            "../assets/bilibili.png",
             "#fb7299"
         )
 

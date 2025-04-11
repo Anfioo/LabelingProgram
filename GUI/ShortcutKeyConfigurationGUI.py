@@ -17,7 +17,7 @@ class ShortcutRecorder(QMainWindow):
         self.init_key_map()
 
         # 加载配置
-        self.config_file = "shortcuts.json"
+        self.config_file = "../resource/shortcuts.json"
         self.config = self.load_config()
 
         # 初始化UI

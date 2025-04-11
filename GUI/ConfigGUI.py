@@ -90,7 +90,7 @@ class JSONEditor(QMainWindow):
         self.setGeometry(1000, 100, 800, 600)
 
         # 配置文件路径
-        self.config_file = "config.json"
+        self.config_file = "../resource/config.json"
 
         # 初始化数据
         self.data = {

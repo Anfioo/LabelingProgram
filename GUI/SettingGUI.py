@@ -65,7 +65,6 @@ class MainWindow(QMainWindow):
 
 
     def closeEvent(self, event):
-        print("关闭设置")  # 打印关闭信息
         # 如果提供了回调函数，则调用
         if self.reload_callback:
             self.reload_callback()

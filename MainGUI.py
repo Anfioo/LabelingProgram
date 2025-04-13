@@ -9,7 +9,7 @@ import cv2
 import numpy as np
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QFileDialog, QLabel,
                              QPushButton, QVBoxLayout, QWidget, QHBoxLayout,
-                             QSpinBox, QComboBox, QSizePolicy)
+                             QSpinBox, QComboBox, QSizePolicy, QMessageBox)
 from PyQt5.QtCore import Qt, QPoint
 from PyQt5.QtGui import QImage, QPixmap, QPainter, QPen, QColor
 
@@ -137,9 +137,19 @@ class LabelTool(QMainWindow):
                 'continue': partial(self.open_image_dir_check_ok, dir_path),
                 'cancel': lambda: sys.exit(),
                 'deal': partial(self.deal_dir, dir_path),
+                'close': self.show_exit_confirmation,
             })
 
             self.check_window.show()
+
+    def show_exit_confirmation(self):
+        """显示退出提示对话框（仅提示，不退出）"""
+        QMessageBox.information(
+            self,
+            '操作取消',
+            '取消操作可能会影响软件使用，请谨慎操作,并且仍然会在后台进行检查',
+            QMessageBox.Ok
+        )
 
     def open_image_dir_check_ok(self, dir_path):
 

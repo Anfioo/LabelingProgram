@@ -5,6 +5,7 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget
 
 from ConfigGUI import JSONEditor
+from AutoCreateCategory import ClassMappingGenerator
 from ShortcutKeyConfigurationGUI import ShortcutRecorder
 
 from SvgRenderer import get_setting_svg_icon, set_svg_icon_from_string
@@ -21,6 +22,7 @@ class MainWindow(QMainWindow):
         self.ShortcutRecorder = None
         self.ConfigGUI = None
         self.Introduce = None
+        self.Labels = None
         # 创建主部件和布局
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -36,11 +38,16 @@ class MainWindow(QMainWindow):
         self.button_b.clicked.connect(self.annotation_setting)
         layout.addWidget(self.button_b)
 
+        # 创建按钮4
+        self.button_d = QPushButton("自动标注配置")
+        self.button_d.clicked.connect(self.annotation_labels)
+        layout.addWidget(self.button_d)
 
         # 创建按钮3
         self.button_c = QPushButton("关于")
         self.button_c.clicked.connect(self.annotation_introduce)
         layout.addWidget(self.button_c)
+
 
         # 设置布局
         central_widget.setLayout(layout)
@@ -62,6 +69,11 @@ class MainWindow(QMainWindow):
         if self.Introduce is None:
             self.Introduce = ProfileWindow()
         self.Introduce.show()
+
+    def annotation_labels(self):
+        if self.Labels is None:
+            self.Labels = ClassMappingGenerator()
+        self.Labels.show()
 
 
     def closeEvent(self, event):

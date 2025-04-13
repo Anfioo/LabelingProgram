@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QTimer
 from SvgRenderer import get_check_svg_icon, set_svg_icon_from_string
 
+
 class ImageChecker(QThread):
     progress_updated = pyqtSignal(int, str)
     checking_finished = pyqtSignal(bool, list)
@@ -63,10 +64,13 @@ class ImageSizeCheckerApp(QMainWindow):
         self.folder_path = folder_path
         self.start_time = time.time()
         self._all_ok = False
+        self._c=True
+        self._checking_completed = False  # 检查是否完成的标志
         self.callbacks = {
             'continue': callbacks.get('continue', lambda: None),
             'cancel': callbacks.get('cancel', lambda: None),
-            'deal': callbacks.get('deal', lambda: None)
+            'deal': callbacks.get('deal', lambda: None),
+            'close': callbacks.get('close', lambda: None)
         }
 
         self.setWindowTitle("图片尺寸检查工具")
@@ -96,7 +100,7 @@ class ImageSizeCheckerApp(QMainWindow):
 
         main_widget.setLayout(layout)
         self.setCentralWidget(main_widget)
-        set_svg_icon_from_string(self,get_check_svg_icon())
+        set_svg_icon_from_string(self, get_check_svg_icon())
 
     def start_countdown(self):
         self.countdown = 2
@@ -128,6 +132,7 @@ class ImageSizeCheckerApp(QMainWindow):
 
     def show_result(self, all_valid, invalid_files):
         self.progress_bar.setValue(100)
+        self._checking_completed = True  # 标记检查已完成
 
         if all_valid:
             QMessageBox.information(self, "检查完成", "所有图片都是640x640大小")
@@ -146,15 +151,16 @@ class ImageSizeCheckerApp(QMainWindow):
             msg_box.setText(msg + "\n发现有不符合尺寸的图片，请选择操作：")
 
             continue_btn = msg_box.addButton("继续", QMessageBox.YesRole)
-            cancel_btn = msg_box.addButton("取消", QMessageBox.NoRole)
+            cancel_btn = msg_box.addButton("退出", QMessageBox.NoRole)
             deal_btn = msg_box.addButton("去处理", QMessageBox.HelpRole)
 
             msg_box.exec_()
 
             clicked_btn = msg_box.clickedButton()
             if clicked_btn == continue_btn:
-                self.callbacks['continue']()
-                self._all_ok=True
+                if self._c:
+                    self.callbacks['continue']()
+                self._all_ok = True
                 self.close()
             elif clicked_btn == cancel_btn:
                 self.callbacks['cancel']()
@@ -164,6 +170,52 @@ class ImageSizeCheckerApp(QMainWindow):
                 self.close()
 
     def closeEvent(self, event):
-        if not self._all_ok:
-            self.callbacks['cancel']()
-        event.accept()
+        if not self._checking_completed:
+            # 检查未完成时点击关闭按钮
+            reply = QMessageBox.question(
+                self, '确认关闭',
+                '关闭会影响标注，确定继续吗?',
+                QMessageBox.Yes | QMessageBox.No,
+                QMessageBox.No
+            )
+            if reply == QMessageBox.Yes:
+                self.callbacks['continue']()
+                self._c=False
+                event.accept()
+            else:
+                event.ignore()
+        else:
+            # 检查已完成且有不合格图片时点击关闭按钮
+            if not self._all_ok:
+                self.callbacks['continue']()
+            event.accept()
+
+
+if __name__ == "__main__":
+    def continue_callback():
+        print("继续操作")
+
+
+    def cancel_callback():
+        print("取消操作")
+
+
+    def deal_callback():
+        print("去处理操作")
+
+
+    def close_callback():
+        print("关闭操作")
+
+
+    app = QApplication(sys.argv)
+    folder_path = "C:\\Users\\34859\\Pictures\\Screenshots"  # 替换为你的测试文件夹路径
+    callbacks = {
+        'continue': continue_callback,
+        'cancel': cancel_callback,
+        'deal': deal_callback,
+        'close': close_callback
+    }
+    window = ImageSizeCheckerApp(folder_path, callbacks)
+    window.show()
+    sys.exit(app.exec_())

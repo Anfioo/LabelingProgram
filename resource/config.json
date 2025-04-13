@@ -1,59 +1,47 @@
 {
-    "open_default_dir": "C:/Users/34859/Pictures/Screenshots_ok",
+    "open_default_dir": "C:/Users/34859/Pictures/yolo/images_small_allok_dealok",
     "classes": [
         {
-            "label": "Category1",
+            "label": "Anger",
             "r": 255,
             "g": 0,
             "b": 0
         },
         {
-            "label": "Category2",
+            "label": "Disgust",
             "r": 255,
-            "g": 170,
+            "g": 191,
             "b": 0
         },
         {
-            "label": "Category3",
-            "r": 169,
+            "label": "Fear",
+            "r": 127,
             "g": 255,
             "b": 0
         },
         {
-            "label": "Category4",
+            "label": "Happiness",
             "r": 0,
             "g": 255,
-            "b": 0
+            "b": 63
         },
         {
-            "label": "Category5",
+            "label": "Neutral",
             "r": 0,
-            "g": 255,
-            "b": 170
-        },
-        {
-            "label": "Category6",
-            "r": 0,
-            "g": 169,
+            "g": 254,
             "b": 255
         },
         {
-            "label": "Category7",
+            "label": "Sadness",
             "r": 0,
-            "g": 0,
+            "g": 63,
             "b": 255
         },
         {
-            "label": "Category8",
-            "r": 170,
+            "label": "Surprise",
+            "r": 127,
             "g": 0,
             "b": 255
-        },
-        {
-            "label": "Category9",
-            "r": 255,
-            "g": 0,
-            "b": 169
         }
     ]
 }

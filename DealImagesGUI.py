@@ -110,7 +110,7 @@ class ImageProcessor(QThread):
 
 
 class ImageResizerApp(QMainWindow):
-    def __init__(self, callbacks, deal_dir=None):
+    def __init__(self, callbacks=lambda _dir: print(_dir), deal_dir=None):
         super().__init__()
         self.setWindowTitle("批量图片处理器")
         self.setGeometry(100, 100, 700, 500)
@@ -145,7 +145,7 @@ class ImageResizerApp(QMainWindow):
         self.output_line.setPlaceholderText("点击浏览选择输出文件夹")
 
         if self.deal_dir is not None:
-            self.output_line.setText(self.deal_dir+"_ok")
+            self.output_line.setText(self.deal_dir + "_ok")
 
         output_layout.addWidget(self.output_line)
         self.output_btn = QPushButton("浏览...")

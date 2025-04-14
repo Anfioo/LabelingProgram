@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['MainGUI.py'],
+    ['Main_launcher.py'],
     pathex=[],
     binaries=[],
     datas=[],
@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='MainGUI',
+    name='Main_launcher',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -35,5 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['app.ico'],
+    icon=['app_sets.ico'],
 )
